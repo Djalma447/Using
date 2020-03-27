@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Course
 {
@@ -6,7 +7,27 @@ namespace Course
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string path = @"c:\temp\elvis7.txt";
+
+            try
+            {
+                using (FileStream fs = new FileStream(path, FileMode.Open))
+                {
+                    using (StreamReader sr = new StreamReader(fs))
+                    {
+                        while (!sr.EndOfStream)
+                        {
+                            string line = sr.ReadLine();
+                            Console.WriteLine(line);
+                        }
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("An error ocurred");
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
